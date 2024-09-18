@@ -14,5 +14,7 @@ token_words = list(chain.from_iterable([word_tokenize(sentence) for sentence in 
 
 for word in token_words:
     meaning = wordnet.synsets(word)
-    if len(meaning) > 0:
-        print(f'{word}: {meaning[0].definition()}')
+    if meaning:
+        print(f'{word}: {[defis.definition() for defis in meaning]}')
+        print(f'Synonyms:, {[lemma.name() for lemma in meaning[0].lemmas()]}')
+        print(f'Antonyms:, {[anton.name() for lemma in meaning[0].lemmas() for anton in lemma.antonyms()]}\n')
